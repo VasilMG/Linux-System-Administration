@@ -1,0 +1,28 @@
+VM 1 AlmaLinux Rila:
+
+1.$ sudo ip address add 192.168.148.1/24 dev enp0s8
+2.$ sudo dnf install -y dhcp-server
+  $ sudo vi /etc/dhcp/dhcpd.conf
+	option domain-name "Rila";
+	option domain-name-servers 8.8.8.8;
+
+	subnet 192.168.148.0 netmask 255.255.255.0 {
+	range 192.168.148.50 192.168.148.59;
+	option routers 192.168.148.1;
+	option broadcast-address 192.168.148.255;
+
+	default-lease-time 600;
+	max-lease-time 7200;
+	}
+  $ sudo systemctl start dhcpd
+  $ sudo systemctl enable dhcpd
+3.$ sudo dnf install -y openssh
+  $ sudo systemctl start sshd
+  $ sudo systemctl enable sshd
+4.$ sudo dnf update
+5.$ sudo sysctl -w net.ipv4.ip_forward=1
+6.$ sudo dnf config-manager --add-repo https://repos.zahariev.pro/dnf/zahariev-repo.repo
+7.$ sudo dnf install --nogpgcheck hello-lsa
+sudo firewall-cmd –get-active-zones
+sudo nmcli connection modify enp0s3 connection.zone external
+sudo nmcli connection modify static-internal connection.zone trusted

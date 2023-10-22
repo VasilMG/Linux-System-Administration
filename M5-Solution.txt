@@ -1,0 +1,20 @@
+1.$ sudo vi /etc/default/grub
+	GRUB_TIMEOUT=60
+	GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+	GRUB_DEFAULT=saved
+	GRUB_DISABLE_SUBMENU=true
+	GRUB_TERMINAL_OUTPUT="console"
+	GRUB_CMDLINE_LINUX="resume=/dev/mapper/almalinux-swap rd.lvm.lv=almalinux/root 
+	rd.lvm.lv=almalinux/swap"
+	GRUB_DISABLE_RECOVERY="true"
+	GRUB_ENABLE_BLSCFG=true
+  :wq
+   $ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+2.$ journalctl -k --no-pager --output=short-iso-precise --reverse > boot-extract.txt
+3.$ echo  After=network.target sshd-keygen.target > sshd-after.txt
+4.$ sudo pstree -p > processes-tree.txt
+5.$ df -BGB > free-space.txt
+6.$ du -d 1 -h / 2> /dev/null | sort -h -r > used-space.txt  ---→ no idea why this doesn’t pass as it should be fine
+7.$ pidstat 5 5 > stat-output.txt
+8.$ sudo lsof +D /etc > open-files.txt; echo 'sudo lsof +D /etc > open-files.txt' >>open-files.txt
+9.$ sudo top -b -n 5 -d 5 > process-monitoring.txt
