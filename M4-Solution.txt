@@ -26,3 +26,17 @@ VM 1 AlmaLinux Rila:
 sudo firewall-cmd –get-active-zones
 sudo nmcli connection modify enp0s3 connection.zone external
 sudo nmcli connection modify static-internal connection.zone trusted
+
+VM 2 Debian Pirin:
+
+1.Get ip address automatically by the server.
+2.$ sudo useradd homework
+  $ sudo passwd homework
+  $ sudo usermod -a -G sudo homework
+3.$ sudo vi /etc/ssh/sshd_config
+...
+Port 50022
+…
+$ sudo apt-install ufw
+$ sudo ufw allow 50022/tcp
+$ sudo ufw enable
